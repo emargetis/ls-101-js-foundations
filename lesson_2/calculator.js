@@ -6,9 +6,12 @@
 //Display the result in the terimal
 
 const rlSync = require('readline-sync');
+const messages = require('./calculator_messages.json');
+let lang = 'en';
 
-function prompt(message) {
-  console.log(`=> ${message}`);
+function prompt(message, lang='en') {
+  let output = messages[lang][message];
+  console.log(`=> ${output}`);
 }
 
 function invalidNumber(num) {
@@ -16,46 +19,55 @@ function invalidNumber(num) {
 }
 
 
-prompt('Welcome to Calculator!');
+prompt('Welcome', lang);
 
-prompt('What is the first number?');
-let firstNumber = rlSync.question();
+let response = 'y';
 
-while (invalidNumber(firstNumber)) {
-  prompt("Hmm... that doesn't look like a valid number.\n Please enter a number below:");
-  firstNumber = rlSync.question();
+while (response === 'y') {
+
+  prompt('First Number', lang);
+  let firstNumber = rlSync.question();
+  
+  while (invalidNumber(firstNumber)) {
+    prompt('Invalid Number', lang);
+    firstNumber = rlSync.question();
+  }
+  
+  prompt('Second Number', lang);
+  let secondNumber = rlSync.question();
+  
+  while (invalidNumber(secondNumber)) {
+    prompt('Invalid Number', lang);
+    secondNumber = rlSync.question();
+  }
+  
+  prompt('Operation Selection', lang);
+  let operation = rlSync.question();
+  
+  let output;
+  
+  
+  switch (operation) {
+    case '1':
+      output = Number(firstNumber) + Number(secondNumber);
+      break;
+    case '2':
+      output = Number(firstNumber) - Number(secondNumber);
+      break;
+    case '3':
+      output = Number(firstNumber) * Number(secondNumber);
+      break;
+    case '4':
+      output = Number(firstNumber) / Number(secondNumber);
+      break;
+  }
+  
+if (output) {
+  console.log(`The result is: ${output}`);
+} else {
+  console.log(`Cannot perform calculation. Please enter a valid operation using 1-4`);
 }
-
-prompt('What is the second number?');
-let secondNumber = rlSync.question();
-
-while (invalidNumber(secondNumber)) {
-  prompt("Hmm... that doesn't look like a valid number.\n Please enter a number below:");
-  secondNumber = rlSync.question();
+  
+  prompt('Another Calculation', lang);
+  response = rlSync.question().toLowerCase();
 }
-
-prompt('Which operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide');
-let operation = rlSync.question();
-
-let output;
-
-
-switch (operation) {
-  case '1':
-    output = Number(firstNumber) + Number(secondNumber);
-    break;
-  case '2':
-    output = Number(firstNumber) - Number(secondNumber);
-    break;
-  case '3':
-    output = Number(firstNumber) * Number(secondNumber);
-    break;
-  case '4':
-    output = Number(firstNumber) / Number(secondNumber);
-    break;
-  default:
-    prompt('Please enter valid inputs - two numbers and 1-4 for the operation.');
-    break;
-}
-
-prompt(`The result is: ${output}`);

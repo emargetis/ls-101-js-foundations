@@ -1,0 +1,21 @@
+{
+  "en": {
+    "Welcome" : "Welcome to Calculator!",
+    "Invalid Number" : "Hmm... that doesn't look like a valid number.\n Please enter a number below:",
+    "First Number" : "What is the first number?",
+    "Second Number" : "What is the second number?",
+    "Operation Selection" : "Which operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "Another Calculation" : "Would you like to do another calculation? y/n",
+    "Invalid Operation" : "Please enter valid inputs - two numbers and 1-4 for the operation."
+  },
+  "es": {
+    "Welcome" : "Bienvenidos to Calculator!",
+    "Invalid Number" : "Hmm... that doesn't look like a valid number.\n Please enter a number below:",
+    "First Number" : "What is the first number?",
+    "Second Number" : "What is the second number?",
+    "Operation Selection" : "Which operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "Another Calculation" : "Would you like to do another calculation? y/n",
+    "Invalid Operation" : "Please enter valid inputs - two numbers and 1-4 for the operation."
+  }
+  
+}
