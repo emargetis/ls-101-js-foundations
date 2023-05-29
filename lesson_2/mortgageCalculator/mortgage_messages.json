@@ -1,0 +1,31 @@
+{
+  "en" : {
+    "Language" : "Please select your language (en for English or es for Spanish)",
+    "Invalid Language" : "Our program only supports english and spanish at this time. Please enter 'en' for English or 'es' for Spanish.",
+    "Welcome" : "Welcome to the mortgage calculator!\n",
+    "Loan Input" : "Please enter the loan amount",
+    "Invalid Number" : "Hmm your input is invalid. Please enter a number greater than or equal to 0.",
+    "Invalid Number Zero" : "Hmm your input is invalid. Please enter a number greater than 0.",
+    "Invalid Total Duration" : "Hmm your duration cannot be 0 years and 0 months.",
+    "APR Input" : "Please enter the annual percentage rate (APR) using integers and decimals to represent the rate (e.g. 5.5 for 5.5%)",
+    "Duration Years" : "Please enter the number of years for the loan duration (you will be asked for any additional months next)",
+    "Duration Months" : "Please enter any additional months for the loan duration",
+    "Monthly Payment" : "Your monthly payment is",
+    "Continue" : "Would you like to do another calculation? (y/n)",
+    "Invalid Continuation" : "Please enter either 'y' or 'n'"
+  
+  },
+  "es" : {
+    "Welcome" : "Bienvenido a la calculadora de hipotecas\n",
+    "Loan Input" : "Por favor ingrese el monto del préstamo",
+    "Invalid Number" : "Hmm tu entrada no es válida. Por favor ingrese un número mayor o igual a 0.",
+    "Invalid Number Zero" : "Hmm tu entrada no es válida. Por favor, introduzca un número mayor que 0.",
+    "Invalid Total Duration" : "Hmm, tu duración no puede ser de 0 años y 0 meses.",
+    "APR Input" : "Ingrese la tasa de porcentaje anual (APR) usando números enteros y decimales para representar la tasa (por ejemplo, 5.5 para 5.5%)",
+    "Duration Years" : "Ingrese el número de años para la duración del préstamo (a continuación, se le solicitará cualquier mes adicional)",
+    "Duration Months" : "Ingrese cualquier mes adicional para la duración del préstamo",
+    "Monthly Payment" : "Su pago mensual es",
+    "Continue" : "¿Te gustaría hacer otro cálculo? (t/n)",
+    "Invalid Continuation" : "Ingrese 'y' o 'n'"
+  }
+}
