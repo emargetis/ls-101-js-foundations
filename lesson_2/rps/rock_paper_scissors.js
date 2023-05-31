@@ -1,3 +1,4 @@
+//--------------------Variables--------------------------------//
 //load additional packages
 const readline = require('readline-sync');
 
@@ -17,7 +18,9 @@ const WINNING_COMBOS = {
   spock:    ['rock',     'scissors'],
 };
 
+const OVERALL_WIN_MIN = 3;
 
+//--------------------Functions--------------------------------//
 function prompt(message) {
   console.log(`=> ${message}`);
 }
@@ -26,27 +29,49 @@ function divider() {
   console.log('\n--------------------------------');
 }
 
+function welcomeMessage() {
+  prompt(`Welcome to rock, paper, scissors, lizard, spock!`);
+  prompt(`The first one to ${OVERALL_WIN_MIN} wins wins the whole game.`);
+}
+
 function playerWins(user, computer) {
   return WINNING_COMBOS[user].includes(computer);
 }
 
+//Generates string of all possible moves including shortcuts
+function generateMoveString() {
+  let moveString = 'Enter one: ';
+
+  Object.entries(VALID_CHOICES).forEach(element => {
+    moveString += `${element[1]} or ${element[0]} for short, `;
+  });
+
+  return moveString;
+}
+
+//Get user choice and translate it to rock paper scissors lizard or spock
 function collectUserChoice() {
-   //Collect and validate user choice
-    prompt(`Choose one: ${Object.keys(VALID_CHOICES).join(', ')}`);
-    let userInput = readline.question().toLowerCase();
+  prompt(generateMoveString());
 
+  let userInput = readline.question().toLowerCase();
 
-    while (!Object.keys(VALID_CHOICES).includes(userInput)) {
-      prompt(`That's not a valid choice. Choose: ${Object.keys(VALID_CHOICES).join(', ')}`);
-      userInput = readline.question().toLowerCase();
-    }
-    
+  while (!(Object.keys(VALID_CHOICES).includes(userInput) ||
+         Object.values(VALID_CHOICES).includes(userInput))) {
+    prompt(`That's not a valid choice.`);
+    prompt(generateMoveString());
+    userInput = readline.question().toLowerCase();
+  }
+
+  if (Object.values(VALID_CHOICES).includes(userInput)) {
+    return userInput;
+  } else {
     return VALID_CHOICES[userInput];
+  }
 }
 
 function generateComputerChoice() {
-  let randomIndex = Math.floor(Math.random() * Object.keys(VALID_CHOICES).length);
-  return Object.entries(VALID_CHOICES)[randomIndex][1];
+  let randIndex = Math.floor(Math.random() * Object.keys(VALID_CHOICES).length);
+  return Object.entries(VALID_CHOICES)[randIndex][1];
 }
 
 function returnWinner(user, computer) {
@@ -61,14 +86,14 @@ function returnWinner(user, computer) {
 
 function anotherGame() {
   prompt('Do you want to play another game? y/n');
-  
+
   let answer = readline.question().toLowerCase();
 
   while (answer[0] !== 'n' && answer[0] !== 'y') {
     prompt('Please enter "y" or "n".');
     answer = readline.question().toLowerCase();
   }
-  
+
   return answer;
 }
 
@@ -76,17 +101,19 @@ function displayRecord(userRecord, computerRecord) {
   prompt(`Your wins: ${userRecord} | Computer wins: ${computerRecord}`);
 }
 
+
+//--------------------Main Program--------------------------------//
 while (true) {
-  
+  welcomeMessage();
+
   let userWins = 0;
   let computerWins = 0;
 
-  while (userWins < 3 && computerWins < 3) {
-    
+  while (userWins < OVERALL_WIN_MIN && computerWins < OVERALL_WIN_MIN) {
+
     divider();
     displayRecord(userWins, computerWins);
 
-    //Get user choice and translate it to rock paper scissors
     let userChoice = collectUserChoice();
 
     //Generate computer choice
@@ -110,11 +137,11 @@ while (true) {
   }
 
   divider();
-  
+
   displayRecord(userWins, computerWins);
 
   //Ask user if they want to play again
   let again = anotherGame();
   if (again[0] !== 'y') break;
-  
+
 }
