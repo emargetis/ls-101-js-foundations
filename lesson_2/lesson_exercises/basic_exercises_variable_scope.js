@@ -1,0 +1,10 @@
+//1 => Undefined because the keyword var supports hoisting of the declaration and assigns it a value of undefined, but not hoisting of the initialization
+//2 => Error because the keyword let supports hoisting of the declaration but is not asssigned a value of undefined becuase it is in the temporal deadzone
+//3 => ReferencError because value is defined with block scope
+//4 => 1 because the block scope of if can access the outer scope where a is declared and initialized with a value of 1
+//5 => Error because the inner a shadows the outer a for the entire block but let doesn't support hoisting the initialization of a value
+//6 => false because the inner scope has no effect on the outer scope
+//7 => 1 because the inner scope can access the outer scope
+//8 => 2 because a is a local variable within the function
+//9 => Type error because you cannot reassign a constant
+//10 => { firstName: 'Jane', lastName: 'Doe' }

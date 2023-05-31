@@ -1,0 +1,5 @@
+//1 => Hello then Hello because although within the function we reassign word to uppercase, we are only reassigning the local variable word to the uppercase version. This is pass-by-value.
+//2 => Hello then HELLO because we are reassigning the value of myWord in the global scope to the return value of the function which is the uppercase version of 'Hello'
+//3 => Hello then Hello then HELLO becuase we are initializing my Other word with the return value of the function which is the uppercase version of 'Hello' and within the functio we are printing the value of myWord that gets passed into the function
+//4 => ['Hello', 'Goodbye'] then ['Hi', 'Goodbye'] because we print the object, mutate the object within the function and then we print it again outside the function
+//5 => ['Hello', 'Goodbye'] then ['Hello', 'Goodbye'] because we print the object within the function then we reassign the local variable words to a new object. Outside of the function, we print the original underlying object again.
