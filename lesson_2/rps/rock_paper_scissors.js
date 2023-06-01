@@ -17,7 +17,6 @@ const WINNING_COMBOS = {
   lizard:   ['paper',    'spock'],
   spock:    ['rock',     'scissors'],
 };
-
 const OVERALL_WIN_MIN = 3;
 
 //--------------------Functions--------------------------------//
@@ -25,11 +24,11 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-function divider() {
+function printDivider() {
   console.log('\n--------------------------------');
 }
 
-function welcomeMessage() {
+function displayWelcome() {
   prompt(`Welcome to rock, paper, scissors, lizard, spock!`);
   prompt(`The first one to ${OVERALL_WIN_MIN} wins wins the whole game.`);
 }
@@ -49,14 +48,18 @@ function generateMoveString() {
   return moveString;
 }
 
+function invalidChoices(userInput) {
+  return !(Object.keys(VALID_CHOICES).includes(userInput) ||
+         Object.values(VALID_CHOICES).includes(userInput));
+}
+
 //Get user choice and translate it to rock paper scissors lizard or spock
 function collectUserChoice() {
   prompt(generateMoveString());
 
   let userInput = readline.question().toLowerCase();
 
-  while (!(Object.keys(VALID_CHOICES).includes(userInput) ||
-         Object.values(VALID_CHOICES).includes(userInput))) {
+  while (invalidChoices(userInput)) {
     prompt(`That's not a valid choice.`);
     prompt(generateMoveString());
     userInput = readline.question().toLowerCase();
@@ -89,7 +92,7 @@ function anotherGame() {
 
   let answer = readline.question().toLowerCase();
 
-  while (answer[0] !== 'n' && answer[0] !== 'y') {
+  while ((answer[0] !== 'n' && answer[0] !== 'y') || answer.length > 1) {
     prompt('Please enter "y" or "n".');
     answer = readline.question().toLowerCase();
   }
@@ -97,22 +100,27 @@ function anotherGame() {
   return answer;
 }
 
-function displayRecord(userRecord, computerRecord) {
+function displayScorecard(userRecord, computerRecord) {
   prompt(`Your wins: ${userRecord} | Computer wins: ${computerRecord}`);
+}
+
+function incrementScore(currentScore) {
+  return currentScore += 1;
 }
 
 
 //--------------------Main Program--------------------------------//
 while (true) {
-  welcomeMessage();
+  console.clear()
+  displayWelcome();
 
-  let userWins = 0;
-  let computerWins = 0;
+  let userScore = 0;
+  let computerScore = 0;
 
-  while (userWins < OVERALL_WIN_MIN && computerWins < OVERALL_WIN_MIN) {
+  while (userScore < OVERALL_WIN_MIN && computerScore < OVERALL_WIN_MIN) {
 
-    divider();
-    displayRecord(userWins, computerWins);
+    printDivider();
+    displayScorecard(userScore, computerScore);
 
     let userChoice = collectUserChoice();
 
@@ -124,21 +132,21 @@ while (true) {
     //Determine winner
     let currentWinner = returnWinner(userChoice, computerChoice);
 
-    //Increment wins
+    //Increment Score
     if (currentWinner === 'user') {
-      userWins += 1;
+      userScore += 1;
       prompt('You won that game!');
     } else if (currentWinner === 'computer') {
-      computerWins += 1;
+      computerScore += 1;
       prompt('Computer won that game.');
     } else {
       prompt('That game was a tie.');
     }
   }
 
-  divider();
+  printDivider();
 
-  displayRecord(userWins, computerWins);
+  displayScorecard(userScore, computerScore);
 
   //Ask user if they want to play again
   let again = anotherGame();
