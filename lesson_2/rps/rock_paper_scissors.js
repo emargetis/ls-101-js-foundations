@@ -100,27 +100,42 @@ function anotherGame() {
   return answer;
 }
 
-function displayScorecard(userRecord, computerRecord) {
-  prompt(`Your wins: ${userRecord} | Computer wins: ${computerRecord}`);
+function displayScorecard(score) {
+  prompt(`Your wins: ${score['userScore']} | Computer wins: ${score['computerScore']}`);
 }
 
-function incrementScore(currentScore) {
-  return currentScore += 1;
+function displayRoundWinner(winner) {
+  if (winner === 'user') {
+    prompt('You won that game!');
+  } else if (winner === 'computer') {
+    prompt('Computer won that game.');
+  } else {
+    prompt('That game was a tie.');
+  }
 }
 
+function incrementScore(score, winner) {
+  if (winner === 'user') {
+    score['userScore'] += 1;
+  } else if (winner === 'computer') {
+    score['computerScore'] += 1;
+  }
+}
 
 //--------------------Main Program--------------------------------//
 while (true) {
-  console.clear()
+  console.clear();
   displayWelcome();
 
-  let userScore = 0;
-  let computerScore = 0;
+  let scoreBoard = {
+    userScore: 0,
+    computerScore: 0,
+  };
 
-  while (userScore < OVERALL_WIN_MIN && computerScore < OVERALL_WIN_MIN) {
+  while (scoreBoard['userScore'] < OVERALL_WIN_MIN && scoreBoard['computerScore'] < OVERALL_WIN_MIN) {
 
     printDivider();
-    displayScorecard(userScore, computerScore);
+    displayScorecard(scoreBoard);
 
     let userChoice = collectUserChoice();
 
@@ -130,23 +145,15 @@ while (true) {
     prompt(`You chose ${userChoice}, computer chose ${computerChoice}`);
 
     //Determine winner
-    let currentWinner = returnWinner(userChoice, computerChoice);
+    let roundWinner = returnWinner(userChoice, computerChoice);
 
-    //Increment Score
-    if (currentWinner === 'user') {
-      userScore += 1;
-      prompt('You won that game!');
-    } else if (currentWinner === 'computer') {
-      computerScore += 1;
-      prompt('Computer won that game.');
-    } else {
-      prompt('That game was a tie.');
-    }
+    //Increment Score accordingly
+    incrementScore(scoreBoard, roundWinner);
+    displayRoundWinner(roundWinner);
   }
 
   printDivider();
-
-  displayScorecard(userScore, computerScore);
+  displayScorecard(scoreBoard);
 
   //Ask user if they want to play again
   let again = anotherGame();
